@@ -3,13 +3,14 @@ dotenv.config()
 const express = require('express')
 const app = express()
 
-// Middlewares 
+// Middlewares
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const morgan = require('morgan')
 const session = require('express-session')
 const passUserToView = require('./middleware/pass-user-to-view')
-const isSignedIn = require("./middleware/is-signed-in")
+const isSignedIn = require('./middleware/is-signed-in')
+app.use(express.static('public'));
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000'
@@ -47,7 +48,7 @@ app.get('/', async (req, res) => {
 
 // Route - just for testing purpose
 // VIP-lounge
-app.get("/vip-lounge", isSignedIn, (req,res) => {
+app.get('/vip-lounge', isSignedIn, (req, res) => {
   res.send(`Welcome to the party ${req.session.user.username}`)
 })
 
