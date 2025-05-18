@@ -25,6 +25,7 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
     address: req.body.address,
     description: req.body.description,
     hasSeating: req.body.hasSeating === 'on',
+    hasStudyRoom : req.body.hasStudyRoom ==='on',
     openTime: req.body.openTime,
     closeTime: req.body.closeTime,
     image: req.file ? req.file.filename : 'default-library.jpg',
@@ -55,6 +56,7 @@ router.put('/:id', isSignedIn, multer.single('image'), async (req, res) => {
   library.address = req.body.address;
   library.description = req.body.description;
   library.hasSeating = req.body.hasSeating === 'on';
+  library.hasStudyRoom = req.body.hasStudyRoom ==='on';
   library.openTime = req.body.openTime;
   library.closeTime = req.body.closeTime;
   if (req.file) library.image = req.file.filename;

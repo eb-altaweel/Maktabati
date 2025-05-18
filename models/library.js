@@ -34,10 +34,34 @@ const librarySchema = new mongoose.Schema(
       required: true
     },
 
-    closeTime: {
-      type: Date,
-      required: true
-    },
+description: {
+type: String,
+trim: true
+},
+
+
+hasSeating: {
+type: Boolean,
+default: false
+},
+
+hasStudyRoom:{
+type: Boolean,
+default: false
+},
+
+
+
+openTime: {
+type: Date,
+required: true
+},
+
+
+closeTime: {
+type: Date,
+required: true
+},
 
 image: {
 type: [String],
@@ -48,6 +72,7 @@ type: mongoose.Schema.Types.ObjectId,
 ref: 'User',
 required: true
 },
+
 favouriteByUser: [
 {
 type: mongoose.Schema.Types.ObjectId,
