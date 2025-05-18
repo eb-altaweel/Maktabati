@@ -37,3 +37,9 @@ router.get('/:id', async (req, res) => {
   const library = await Library.findById(req.params.id).populate('owner');
   res.render('libraries/show.ejs', { library });
 });
+
+// Edit form
+router.get('/:id/edit', isSignedIn, async (req, res) => {
+  const library = await Library.findById(req.params.id);
+  res.render('libraries/edit.ejs', { library });
+});
