@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>Edit Library</h1>
+<form action="/libraries/<%= library._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" value="<%= library.name %>" required><br>
+  <input type="text" name="location" value="<%= library.location %>" required><br>
+  <input type="text" name="address" value="<%= library.address %>" required><br>
+  <textarea name="description"><%= library.description %></textarea><br>
+  <label><input type="checkbox" name="hasSeating" <%= library.hasSeating ? 'checked' : '' %>> Has Seating</label><br>
+  <label><input type="checkbox" name="hasStudyRoom" <%= library.hasStudyRoom ? 'checked' : '' %>> Has Study Room</label><br>
+  <label>Open Time: <input type="time" name="openTime" value="<%= library.openTime %>" required></label><br>
+  <label>Close Time: <input type="time" name="closeTime" value="<%= library.closeTime %>" required></label><br>
+  <input type="file" name="image" accept="image/*"><br>
+  <button type="submit">Update Library</button>
+</form>
+</body>
+</html>
+
+
+
+
