@@ -1,24 +1,64 @@
 const mongoose = require('mongoose');
-
 const librarySchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  location: { type: String, required: true },
-  amenities: { type: [String] },
-  seatingAvailability: {
-    type: String,
-    enum: ['Limited', 'Moderate', 'Spacious'],
-    default: 'Moderate'
-  },
-  operatingHours: { type: String, required: true },
-  image: { type: String, default: 'default-library.jpg' },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }
-});
+name: {
+type: String,
+required: true,
+trim: true
+},
 
-// Create Library Model
-const Library = mongoose.model('Library', librarySchema);
 
-module.exports = Library;
+location: {
+type: String,
+required: true,
+trim: true
+},
+
+
+address: {
+type: String,
+required: true,
+trim: true
+},
+
+
+description: {
+type: String,
+trim: true
+},
+
+
+hasSeating: {
+type: Boolean,
+default: false
+},
+
+
+openTime: {
+type: Date,
+required: true
+},
+
+
+closeTime: {
+type: Date,
+required: true
+},
+
+image: {
+type: [String],
+default: '' 
+},
+userId: {
+type: mongoose.Schema.Types.ObjectId,
+ref: 'User',
+required: true
+},
+favouriteByUser: [
+{
+type: mongoose.Schema.Types.ObjectId,
+ref: 'User'
+}
+]
+}, { timestamps: true });
+
+module.exports = mongoose.model('Library', librarySchema);
