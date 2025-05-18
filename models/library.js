@@ -32,6 +32,12 @@ type: Boolean,
 default: false
 },
 
+hasStudyRoom:{
+type: Boolean,
+default: false
+},
+
+
 
 openTime: {
 type: Date,
@@ -53,6 +59,7 @@ type: mongoose.Schema.Types.ObjectId,
 ref: 'User',
 required: true
 },
+
 favouriteByUser: [
 {
 type: mongoose.Schema.Types.ObjectId,
