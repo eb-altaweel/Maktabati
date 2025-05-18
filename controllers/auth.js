@@ -9,7 +9,7 @@ router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs')
 })
 
-router.post('/sign-up', upload, async (req, res) => {
+router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
   try {
     const { username, email, password, confirmPassword } = req.body
 
@@ -94,7 +94,7 @@ router.get('/profile', (req, res) => {
   res.render('auth/profile.ejs', { user: req.session.user })
 })
 
-router.post('/profile', upload, async (req, res) => {
+router.post('/profile', upload.single('profileImage'), async (req, res) => {
   if (!req.session.user) return res.redirect('/auth/sign-in')
 
   try {
@@ -105,7 +105,6 @@ router.post('/profile', upload, async (req, res) => {
         { new: true }
       )
 
-      // Update session data too
       req.session.user.profileImage = updatedUser.profileImage
     }
 

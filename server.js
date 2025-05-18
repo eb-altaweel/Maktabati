@@ -39,8 +39,10 @@ app.use(passUserToView)
 
 //Require Controllers
 const authController = require('./controllers/auth')
+const libraryController = require('./controllers/libraries')
 
 app.use('/auth', authController)
+app.use('/libraries', libraryController)
 
 //get
 app.get('/', async (req, res) => {
