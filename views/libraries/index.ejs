@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Libraries</title>
+</head>
+<body>
+  <h1>All Libraries</h1>
+  <% if (user) { %>
+    <a href="/libraries/new">Add New Library</a>
+  <% } %>
+
+  <ul>
+    <% libraries.forEach(library => { %>
+      <li>
+        <h2><a href="/libraries/<%= library._id %>"><%= library.name %></a></h2>
+        <p>Location:<%= library.location %></p>
+        <p>Address:<%= library.address %></p>
+        <p>Description:<%= library.description %></p>
+        <p>Seating Available:<%= library.hasSeating ? 'Yes' : 'No' %></p>
+        <p>Study Room Available:<%= library.hasStudyRoom ? 'Yes' : 'No' %></p>
+        <p>Open:<%= library.openTime %> - <%= library.closeTime %></p>
+        <% if (library.image) { %>
+          <img src="/uploads/<%= library.image %>" alt="<%= library.name %> image" width="150">
+        <% } %>
+        <% if (user && user._id.toString() === library.owner._id.toString()) { %>
+          <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+          <a href="/libraries/<%= library._id %>/edit">Edit</a>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
