@@ -61,3 +61,9 @@ router.put('/:id', isSignedIn, multer.single('image'), async (req, res) => {
   await library.save();
   res.redirect(`/libraries/${library._id}`);
 });
+
+//Delete library
+router.delete('/:id', isSignedIn, async (req, res) => {
+  await Library.findByIdAndDelete(req.params.id);
+  res.redirect('/libraries');
+});
