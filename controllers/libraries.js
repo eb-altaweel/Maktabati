@@ -22,9 +22,11 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
   const newLibrary = new Library({
     name: req.body.name,
     location: req.body.location,
-    amenities: req.body.amenities.split(','),
-    seatingAvailability: req.body.seatingAvailability,
-    operatingHours: req.body.operatingHours,
+    address: req.body.address,
+    description: req.body.description,
+    hasSeating: req.body.hasSeating === 'on',
+    openTime: req.body.openTime,
+    closeTime: req.body.closeTime,
     image: req.file ? req.file.filename : 'default-library.jpg',
     owner: req.session.user._id
   });
@@ -42,4 +44,20 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', isSignedIn, async (req, res) => {
   const library = await Library.findById(req.params.id);
   res.render('libraries/edit.ejs', { library });
+});
+
+// PUT 
+//  Update library
+router.put('/:id', isSignedIn, multer.single('image'), async (req, res) => {
+  const library = await Library.findById(req.params.id);
+  library.name = req.body.name;
+  library.location = req.body.location;
+  library.address = req.body.address;
+  library.description = req.body.description;
+  library.hasSeating = req.body.hasSeating === 'on';
+  library.openTime = req.body.openTime;
+  library.closeTime = req.body.closeTime;
+  if (req.file) library.image = req.file.filename;
+  await library.save();
+  res.redirect(`/libraries/${library._id}`);
 });
