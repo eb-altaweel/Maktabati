@@ -34,51 +34,49 @@ const librarySchema = new mongoose.Schema(
       required: true
     },
 
-description: {
-type: String,
-trim: true
-},
+    description: {
+      type: String,
+      trim: true
+    },
 
+    hasSeating: {
+      type: Boolean,
+      default: false
+    },
 
-hasSeating: {
-type: Boolean,
-default: false
-},
+    hasStudyRoom: {
+      type: Boolean,
+      default: false
+    },
 
-hasStudyRoom:{
-type: Boolean,
-default: false
-},
+    openTime: {
+      type: String,
+      required: true
+    },
 
+    closeTime: {
+      type: String,
+      required: true
+    },
 
+    image: {
+      type: [String],
+      default: 'default-library.jpg'
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
 
-openTime: {
-type: Date,
-required: true
-},
-
-
-closeTime: {
-type: Date,
-required: true
-},
-
-image: {
-type: [String],
-default: 'default-library.jpg' 
-},
-userId: {
-type: mongoose.Schema.Types.ObjectId,
-ref: 'User',
-required: true
-},
-
-favouriteByUser: [
-{
-type: mongoose.Schema.Types.ObjectId,
-ref: 'User'
-}
-]
-}, { timestamps: true });
+    favouriteByUser: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ]
+  },
+  { timestamps: true }
+)
 
 module.exports = mongoose.model('Library', librarySchema)

@@ -7,7 +7,7 @@ const isSignedIn = require('../middleware/is-signed-in')
 //GET
 //Show all libraries
 router.get('/', async (req, res) => {
-  const libraries = await Library.find().populate('owner')
+  const libraries = await Library.find().populate('userId')
   res.render('libraries/index.ejs', { libraries })
 })
 //Form to create new library
@@ -28,7 +28,7 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
     openTime: req.body.openTime,
     closeTime: req.body.closeTime,
     image: req.file ? req.file.filename : 'default-library.jpg',
-    owner: req.session.user._id
+    userId: req.session.user._id
   })
   await newLibrary.save()
   res.redirect('/libraries')
@@ -36,7 +36,7 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
 
 //Show library details
 router.get('/:id', async (req, res) => {
-  const library = await Library.findById(req.params.id).populate('owner')
+  const library = await Library.findById(req.params.id).populate('userId')
   res.render('libraries/show.ejs', { library })
 })
 
