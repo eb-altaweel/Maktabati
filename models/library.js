@@ -39,23 +39,21 @@ const librarySchema = new mongoose.Schema(
       required: true
     },
 
-    image: {
-      type: [String],
-      default: ''
-    },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true
-    },
-    favouriteByUser: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
-  },
-  { timestamps: true }
-)
+image: {
+type: [String],
+default: 'default-library.jpg' 
+},
+userId: {
+type: mongoose.Schema.Types.ObjectId,
+ref: 'User',
+required: true
+},
+favouriteByUser: [
+{
+type: mongoose.Schema.Types.ObjectId,
+ref: 'User'
+}
+]
+}, { timestamps: true });
 
 module.exports = mongoose.model('Library', librarySchema)
