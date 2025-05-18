@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const express = require('express')
 const app = express()
+app.use('/uploads', express.static('public/uploads'))
 
 // Middlewares
 const mongoose = require('mongoose')
@@ -10,7 +11,7 @@ const morgan = require('morgan')
 const session = require('express-session')
 const passUserToView = require('./middleware/pass-user-to-view')
 const isSignedIn = require('./middleware/is-signed-in')
-app.use(express.static('public'));
+app.use(express.static('public'))
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000'

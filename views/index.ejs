@@ -7,11 +7,18 @@
   </head>
   <body>
     <nav>
-      <%if(user){%>
+      <% if (user) { %>
       <h1>Welcome to the app! <%= user.username %></h1>
+      <% if (user.profileImage) { %>
+      <img
+        src="../public/uploads/<%= user.profileImage %>"
+        alt="Profile Image"
+        style="width: 100px; height: 100px; object-fit: cover"
+      />
+      <% } %>
       <a href="/auth/sign-out">Sign out</a>
-      <% } else {%>
-      <h1>Welcome to the app,guest.</h1>
+      <% } else { %>
+      <h1>Welcome to the app, guest.</h1>
       <h1>Here we go!</h1>
       <a href="/auth/sign-up">Sign up</a>
       <a href="/auth/sign-in">Sign in</a>

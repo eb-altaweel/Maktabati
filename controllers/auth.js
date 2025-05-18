@@ -8,7 +8,7 @@ router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs')
 })
 
-router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
+router.post('/sign-up', upload, async (req, res) => {
   try {
     const userInDatabase = await User.findOne({ username: req.body.username })
     if (userInDatabase) {
@@ -23,6 +23,7 @@ router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
 
     const userData = {
       username: req.body.username,
+      email: req.body.email,
       password: hashedPassword
     }
 
@@ -65,6 +66,7 @@ router.post('/sign-in', async (req, res) => {
 
     req.session.user = {
       username: userInDatabase.username,
+      profileImage: userInDatabase.profileImage,
       _id: userInDatabase._id
     }
 
