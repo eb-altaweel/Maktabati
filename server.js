@@ -2,7 +2,6 @@ const dotenv = require('dotenv')
 dotenv.config()
 const express = require('express')
 const app = express()
-app.use('/uploads', express.static('public/uploads'))
 
 // Middlewares
 const mongoose = require('mongoose')
@@ -25,6 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
 // Morgan for logging HTTP requests
 app.use(morgan('dev'))
+app.use('/uploads', express.static('public/uploads'))
 
 // session configurations
 app.use(
