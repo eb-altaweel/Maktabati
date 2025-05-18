@@ -31,3 +31,9 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
   await newLibrary.save();
   res.redirect('/libraries');
 });
+
+//Show library details
+router.get('/:id', async (req, res) => {
+  const library = await Library.findById(req.params.id).populate('owner');
+  res.render('libraries/show.ejs', { library });
+});
