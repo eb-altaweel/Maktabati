@@ -46,7 +46,7 @@ required: true
 
 image: {
 type: [String],
-default: '' 
+default: 'default-library.jpg' 
 },
 userId: {
 type: mongoose.Schema.Types.ObjectId,
