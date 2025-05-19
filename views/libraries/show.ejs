@@ -28,18 +28,32 @@
     </form>
 
     <h2>Comments:</h2>
-<ul>
-  <% if (comments.length === 0) { %>
-    <li>No comments yet.</li>
-  <% } else { %>
-    <% comments.forEach(comment => { %>
+    <ul>
+      <% if (comments.length === 0) { %>
+      <li>No comments yet.</li>
+      <% } else { %> <% comments.forEach(comment => { %>
       <li>
         <strong><%= comment.userId.username %>:</strong>
         <%= comment.content %>
       </li>
-    <% }) %>
-  <% } %>
-</ul>
+      <% }) %> <% } %>
+    </ul>
 
+    <% if (user) { %> <% if (userHasFavourited) { %>
+    <p>You have favourited this library!</p>
+    <form
+      action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit">Unfavourite it!</button>
+    </form>
+    <% } else { %>
+    <form
+      action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>"
+      method="POST"
+    >
+      <button type="submit">Favourite it!</button>
+    </form>
+    <% } %> <% } %>
   </body>
 </html>

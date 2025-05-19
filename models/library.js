@@ -69,7 +69,7 @@ const librarySchema = new mongoose.Schema(
       required: true
     },
 
-    favouriteByUser: [
+    favouritedByUser: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

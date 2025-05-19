@@ -37,11 +37,27 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
 
 //Show library details
 router.get('/:id', async (req, res) => {
-  const library = await Library.findById(req.params.id).populate('userId')
+  const library = await Library.findById(req.params.id)
+    .populate('userId')
+    .populate('favouritedByUser') // To access full user docs if needed
+
   const comments = await Comment.find({ libraryId: req.params.id }).populate(
     'userId'
   )
-  res.render('libraries/show.ejs', { library, comments })
+
+  let userHasFavourited = false
+  if (req.session.user) {
+    userHasFavourited = library.favouritedByUser.some((user) =>
+      user.equals(req.session.user._id)
+    )
+  }
+
+  res.render('libraries/show.ejs', {
+    library,
+    comments,
+    userHasFavourited,
+    user: req.session.user
+  })
 })
 
 // Edit form
@@ -83,5 +99,29 @@ router.post('/comments', isSignedIn, async (req, res) => {
   await newComment.save()
   res.redirect(`/libraries/${req.body.libraryId}`) // Redirect to the same library page
 })
+
+// Favourite a library
+router.post(
+  '/:libraryId/favourited-by/:userId',
+  isSignedIn,
+  async (req, res) => {
+    await Library.findByIdAndUpdate(req.params.libraryId, {
+      $push: { favouritedByUser: req.params.userId }
+    })
+    res.redirect(`/libraries/${req.params.libraryId}`)
+  }
+)
+
+// Unfavourite a library
+router.delete(
+  '/:libraryId/favourited-by/:userId',
+  isSignedIn,
+  async (req, res) => {
+    await Library.findByIdAndUpdate(req.params.libraryId, {
+      $pull: { favouritedByUser: req.params.userId }
+    })
+    res.redirect(`/libraries/${req.params.libraryId}`)
+  }
+)
 
 module.exports = router
