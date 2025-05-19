@@ -14,12 +14,7 @@
       <% libraries.forEach(library => { %>
       <li>
         <h2><a href="/libraries/<%= library._id %>"><%= library.name %></a></h2>
-        <p>Location:<%= library.location %></p>
-        <p>Address:<%= library.address %></p>
-        <p>Description:<%= library.description %></p>
-        <p>Seating Available:<%= library.hasSeating ? 'Yes' : 'No' %></p>
-        <p>Study Room Available:<%= library.hasStudyRoom ? 'Yes' : 'No' %></p>
-        <p>Open:<%= library.openTime %> - <%= library.closeTime %></p>
+      
         <% if (library.image) { %>
         <img
           src="/uploads/<%= library.image %>"
