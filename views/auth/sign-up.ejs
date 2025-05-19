@@ -8,27 +8,42 @@
   <body>
     <h1>Create a new account!</h1>
     <form action="/auth/sign-up" method="POST" enctype="multipart/form-data">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-  </div>
-  
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-  </div>
-  
-  <div>
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required>
-  </div>
-  
-  <div>
-    <label for="profileImage">Profile Image:</label>
-    <input type="file" id="profileImage" name="profileImage" accept="image/jpeg, image/png">
-  </div>
-  
-  <button type="submit">Sign Up</button>
-</form>
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required />
+      </div>
+
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="profileImage">Profile Image:</label>
+        <input
+          type="file"
+          id="profileImage"
+          name="profileImage"
+          accept="image/jpeg, image/png"
+        />
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
   </body>
 </html>

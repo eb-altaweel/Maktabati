@@ -10,7 +10,7 @@ const morgan = require('morgan')
 const session = require('express-session')
 const passUserToView = require('./middleware/pass-user-to-view')
 const isSignedIn = require('./middleware/is-signed-in')
-app.use(express.static('public'));
+app.use(express.static('public'))
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000'
@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
 // Morgan for logging HTTP requests
 app.use(morgan('dev'))
+app.use('/uploads', express.static('public/uploads'))
 
 // session configurations
 app.use(
@@ -38,8 +39,10 @@ app.use(passUserToView)
 
 //Require Controllers
 const authController = require('./controllers/auth')
+const libraryController = require('./controllers/libraries')
 
 app.use('/auth', authController)
+app.use('/libraries', libraryController)
 
 //get
 app.get('/', async (req, res) => {

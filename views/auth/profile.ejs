@@ -1,0 +1,8 @@
+<h2>Update Profile Image</h2>
+
+<img src="/uploads/<%= user.profileImage %>" alt="Current Profile Image" width="150" height="150" />
+
+<form action="/auth/profile" method="POST" enctype="multipart/form-data">
+  <input type="file" name="profileImage" required />
+  <button type="submit">Upload</button>
+</form>
