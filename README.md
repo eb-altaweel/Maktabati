@@ -33,6 +33,7 @@ Start by planning the database schema using ERD, followed by wireframes for user
 - Secure authentication and authorization
 - Only owners can edit/delete their submissions
 - Responsive and mobile-friendly design
+- Favorite / Unfavorite button
 ---
 ### **_Stretch Features (Planned)_**
 - Upload multiple photos per library
