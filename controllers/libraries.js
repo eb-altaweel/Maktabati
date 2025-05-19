@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Library = require('../models/library')
+const Comment = require('../models/comment')
 const multer = require('../config/multer') // Multer for image upload
 const isSignedIn = require('../middleware/is-signed-in')
 
@@ -37,7 +38,10 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
 //Show library details
 router.get('/:id', async (req, res) => {
   const library = await Library.findById(req.params.id).populate('userId')
-  res.render('libraries/show.ejs', { library })
+  const comments = await Comment.find({ libraryId: req.params.id }).populate(
+    'userId'
+  )
+  res.render('libraries/show.ejs', { library, comments })
 })
 
 // Edit form
@@ -67,6 +71,17 @@ router.put('/:id', isSignedIn, multer.single('image'), async (req, res) => {
 router.delete('/:id', isSignedIn, async (req, res) => {
   await Library.findByIdAndDelete(req.params.id)
   res.redirect('/libraries')
+})
+
+router.post('/comments', isSignedIn, async (req, res) => {
+  const newComment = new Comment({
+    content: req.body.comment,
+    libraryId: req.body.libraryId,
+    userId: req.session.user._id
+  })
+
+  await newComment.save()
+  res.redirect(`/libraries/${req.body.libraryId}`) // Redirect to the same library page
 })
 
 module.exports = router

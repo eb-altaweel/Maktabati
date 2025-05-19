@@ -19,5 +19,27 @@
     <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST">
       <button type="submit">Delete</button>
     </form>
+
+    <form action="/libraries/comments" method="POST">
+      <input type="hidden" name="libraryId" value="<%= library._id %>" />
+      <label for="comment">Leave a comment:</label>
+      <textarea name="comment" id="comment"></textarea>
+      <button type="submit">Add</button>
+    </form>
+
+    <h2>Comments:</h2>
+<ul>
+  <% if (comments.length === 0) { %>
+    <li>No comments yet.</li>
+  <% } else { %>
+    <% comments.forEach(comment => { %>
+      <li>
+        <strong><%= comment.userId.username %>:</strong>
+        <%= comment.content %>
+      </li>
+    <% }) %>
+  <% } %>
+</ul>
+
   </body>
 </html>
