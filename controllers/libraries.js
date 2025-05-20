@@ -154,4 +154,18 @@ router.delete(
   }
 )
 
+// GET - Return only the library's location as JSON
+router.get('/:id/location', async (req, res) => {
+  try {
+    const library = await Library.findById(req.params.id).select('location');
+    if (!library || !library.location) {
+      return res.status(404).json({ error: 'Location not found' });
+    }
+    res.json(library.location);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
 module.exports = router
