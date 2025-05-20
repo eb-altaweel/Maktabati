@@ -2,44 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/StyleSheet/Style.css">
     <title>All Libraries</title>
   </head>
   <body>
-    <h1>All Libraries</h1>
-    <% if (user) { %>
-       <a href="/libraries/my-libraries">My Libraries</a>
-    <a href="/libraries/new">Add New Library</a>
-    <% } %>
+    <header>
+      <h1>All Libraries</h1>
+    </header>
 
-    <ul>
-      <% libraries.forEach(library => { %>
-      <li>
-        <h2><a href="/libraries/<%= library._id %>"><%= library.name %></a></h2>
-      
-        <% if (library.image) { %>
-        <img
-          src="/uploads/<%= library.image %>"
-          alt="<%= library.name %> image"
-          width="150"
-        />
-        <% } %> 
+    <div class="page-container">
+      <% if (user) { %>
+        <div class="user-actions" style="text-align: center; margin-bottom: 2rem;">
+          <a href="/libraries/my-libraries" class="button sign-in">My Libraries</a>
+          <a href="/libraries/new" class="button sign-up">Add New Library</a>
+        </div>
+      <% } %>
 
-<!--         
-        <% if (user && user._id.toString() ===
-        library.userId.toString()) { %>
-        <form
-          action="/libraries/<%= library._id %>?_method=DELETE"
-          method="POST"
-          style="display: inline"
-        >
-          <button type="submit">Delete</button>
-        </form>
-        <a href="/libraries/<%= library._id %>/edit">Edit</a>
-        <% } %> -->
+      <div class="library-grid">
+        <% libraries.forEach(library => { %>
+          <div class="library-card">
+            <a href="/libraries/<%= library._id %>"><%= library.name %></a>
+            
+            <% if (library.image) { %>
+              <img
+                src="/uploads/<%= library.image %>"
+                alt="<%= library.name %> image"
+              />
+            <% } %>
 
+            <!-- Optional edit/delete section (uncomment to use) -->
+            <!--
+            <% if (user && user._id.toString() === library.userId.toString()) { %>
+              <form
+                action="/libraries/<%= library._id %>?_method=DELETE"
+                method="POST"
+                style="display: inline"
+              >
+                <button type="submit" class="button sign-up">Delete</button>
+              </form>
+              <a href="/libraries/<%= library._id %>/edit" class="button sign-in">Edit</a>
+            <% } %>
+            -->
+          </div>
+        <% }) %>
+      </div>
+    </div>
 
-      </li>
-      <% }) %>
-    </ul>
+    <footer>
+      &copy; <%= new Date().getFullYear() %> My Library App
+    </footer>
   </body>
 </html>
