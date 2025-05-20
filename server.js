@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const express = require('express')
 const app = express()
-
+const Library = require('./models/library')
 // Middlewares
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
@@ -45,10 +45,18 @@ app.use('/auth', authController)
 app.use('/libraries', libraryController)
 
 //get
+// app.get('/', async (req, res) => {
+//   res.render('index.ejs')
+// })
 app.get('/', async (req, res) => {
-  res.render('index.ejs')
-})
-
+try {
+const libraries = await Library.find().populate('userId');
+res.render('index.ejs', { libraries });
+} catch (error) {
+console.error('Error loading homepage:', error);
+res.redirect('/auth/sign-in');
+}
+});
 // Route - just for testing purpose
 
 

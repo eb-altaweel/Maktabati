@@ -28,7 +28,6 @@ Start by planning the database schema using ERD, followed by wireframes for user
 - User registration and login
 - User profile with image upload
 - Add / edit / delete library listings
-- Library fields: name, location, amenities, seating availability, operating hours
 - Comment system: leave feedback on libraries
 - Secure authentication and authorization
 - Only owners can edit/delete their submissions
