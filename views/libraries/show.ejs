@@ -1,30 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/StyleSheet/Style.css">
-  <title><%= library.name %></title>
-</head>
-<body>
-  <div class="page-container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="/StyleSheet/Style.css">
+    <title><%= library.name %></title>
+    <style>
+      #map {
+        height: 300px;
+        width: 100%;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
     <h1 class="page-title"><%= library.name %></h1>
-
     <div class="library-details-card">
       <img class="library-image" src="/uploads/<%= library.image %>" alt="Library Image" />
+            <div class="library-info">
+      <strong>Location:</strong>
+      Lat: <span id="lat"><%= library.location.lat %></span>, Lng:
+      <span id="lng"><%= library.location.lng %></span>
+    </p>
+    <div id="map"></div>
 
-      <div class="library-info">
-        <p><strong>Location:</strong> <%= library.location %></p>
-        <p><strong>Address:</strong> <%= library.address %></p>
-        <p><strong>Description:</strong> <%= library.description %></p>
-        <p><strong>Seating:</strong> <%= library.hasSeating ? "Yes" : "No" %></p>
-        <p><strong>Study Room Available:</strong> <%= library.hasStudyRoom ? "Yes" : "No" %></p>
-        <p><strong>Operating Hours:</strong> <%= library.openTime %> - <%= library.closeTime %></p>
-        <p><strong>Owner:</strong> <%= library.userId.username %></p>
-        <p><strong>Favourited by:</strong> <%= library.favouritedByUser.length %> users</p>
-      </div>
+    <p><strong>Address:</strong> <%= library.address %></p>
+    <p><strong>Description:</strong> <%= library.description %></p>
+    <p><strong>Seating:</strong> <%= library.hasSeating ? "Yes" : "No" %></p>
+    <p>
+      <strong>Study Room Available:</strong> <%= library.hasStudyRoom ? "Yes" :
+      "No" %>
+    </p>
+    <p>
+      <strong>Operating Hours:</strong> <%= library.openTime %> - <%=
+      library.closeTime %>
+    </p>
+    <p><strong>Owner:</strong> <%= library.userId.username %></p>
+    <p>
+      <strong>Favorites:</strong> <%= library.favouritedByUser.length %> users
+    </p>
+          </div>
     </div>
-
     <% if (user && user._id.toString() === library.userId._id.toString()) { %>
       <div class="owner-actions">
         <a class="button edit-btn" href="/libraries/<%= library._id %>/edit">Edit this library</a>
@@ -34,6 +51,12 @@
       </div>
     <% } %>
 
+    <form action="/libraries/comments" method="POST">
+      <input type="hidden" name="libraryId" value="<%= library._id %>" />
+      <label for="comment">Leave a comment:</label>
+      <textarea name="comment" id="comment"></textarea>
+      <button type="submit">Add</button>
+    </form>
     <% if (user) { %>
       <div class="favourite-section">
         <% if (userHasFavourited) { %>
@@ -68,10 +91,51 @@
         <% } %>
       </ul>
     </div>
+    <% if (user) { %> <% if (userHasFavourited) { %>
+    <p>You have favourited this library!</p>
+    <form
+      action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit">Unfavourite it!</button>
+    </form>
+    <% } else { %>
+    <form
+      action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>"
+      method="POST"
+    >
+      <button type="submit">Favourite it!</button>
+    </form>
+    <% } %> <% } %>
 
-    <div class="back-link">
-      <a class="button back-btn" href="/libraries">← Back to All Libraries</a>
-    </div>
-  </div>
-</body>
+    <a href="/libraries">Back to all libraries</a>
+
+    <script>
+      const lat = document.getElementById('lat').textContent
+      console.log(lat)
+      const lng = document.getElementById('lng').textContent
+      console.log(lng)
+
+      function initMap() {
+        const location = {
+          lat: Number(lat),
+          lng: Number(lng)
+        }
+        const map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: location
+        })
+        new google.maps.Marker({
+          position: location,
+          map: map
+        })
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=<%=process.env.GOOGLE_MAPS_API_KEY%>&callback=initMap"
+    ></script>
+      </div>
+  </body>
 </html>
