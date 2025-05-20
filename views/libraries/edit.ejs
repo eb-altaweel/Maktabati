@@ -1,59 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/StyleSheet/Style.css" />
-  <title>Edit Library</title>
-</head>
-<body>
-  <div class="page-container">
-    <h1 class="page-title">Edit Library</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/StyleSheet/Style.css" />
+    <title>Edit Library</title>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <h1 class="page-title">Edit Library</h1>
 
-    <form action="/libraries/<%= library._id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="library-form">
-      <div class="form-group">
-        <label for="name">Library Name:</label>
-        <input type="text" id="name" name="name" value="<%= library.name %>" required />
+      <form
+        action="/libraries/<%= library._id %>?_method=PUT"
+        method="POST"
+        enctype="multipart/form-data"
+        class="library-form"
+      >
+        <div class="form-group">
+          <label for="name">Library Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= library.name %>"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value="<%= library.address %>"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description">
+<%= library.description %></textarea
+          >
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label
+            ><input type="checkbox" name="hasSeating" <%= library.hasSeating ?
+            'checked' : '' %>> Has Seating</label
+          >
+          <label
+            ><input type="checkbox" name="hasStudyRoom" <%= library.hasStudyRoom
+            ? 'checked' : '' %>> Has Study Room</label
+          >
+        </div>
+
+        <div class="form-group time-group">
+          <label>Open Time:</label>
+          <input
+            type="time"
+            name="openTime"
+            value="<%= library.openTime %>"
+            required
+          />
+          <label>Close Time:</label>
+          <input
+            type="time"
+            name="closeTime"
+            value="<%= library.closeTime %>"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <input type="file" id="image" name="image" accept="image/*" />
+        </div>
+
+        <label>Location:</label>
+        <div id="map"></div>
+
+        <input
+          type="hidden"
+          name="latitude"
+          id="latitude"
+          value="<%= library.latitude %>"
+        />
+        <input
+          type="hidden"
+          name="longitude"
+          id="longitude"
+          value="<%= library.longitude %>"
+        />
+
+        <p class="coords">
+          Latitude: <span id="latText"><%= library.latitude %></span><br />
+          Longitude: <span id="lngText"><%= library.longitude %></span>
+        </p>
+
+        <button type="submit" class="submit-btn">Update Library</button>
+      </form>
+
+      <div class="top-actions">
+        <a href="/" class="button back-btn">← Back to All Libraries</a>
       </div>
-
-      <div class="form-group">
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" value="<%= library.location %>" required />
-      </div>
-
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" value="<%= library.address %>" required />
-      </div>
-
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" name="description"><%= library.description %></textarea>
-      </div>
-
-      <div class="form-group checkbox-group">
-        <label><input type="checkbox" name="hasSeating" <%= library.hasSeating ? 'checked' : '' %>> Has Seating</label>
-        <label><input type="checkbox" name="hasStudyRoom" <%= library.hasStudyRoom ? 'checked' : '' %>> Has Study Room</label>
-      </div>
-
-      <div class="form-group time-group">
-        <label>Open Time:</label>
-        <input type="time" name="openTime" value="<%= library.openTime %>" required />
-        <label>Close Time:</label>
-        <input type="time" name="closeTime" value="<%= library.closeTime %>" required />
-      </div>
-
-      <div class="form-group">
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" />
-      </div>
-
-      <button type="submit" class="submit-btn">Update Library</button>
-    </form>
-
-    <div class="top-actions">
-      <a href="/libraries" class="button back-btn">← Back to All Libraries</a>
     </div>
-  </div>
-</body>
+
+    <script>
+      function initMap() {
+        const defaultLocation = {
+          lat: parseFloat('<%= library.latitude %>') || 26.2285,
+          lng: parseFloat('<%= library.longitude %>') || 50.586
+        }
+
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: defaultLocation,
+          zoom: 12
+        })
+
+        const marker = new google.maps.Marker({
+          position: defaultLocation,
+          map: map,
+          draggable: true
+        })
+
+        map.addListener('click', function (event) {
+          marker.setPosition(event.latLng)
+          updateLatLng(event.latLng.lat(), event.latLng.lng())
+        })
+
+        marker.addListener('dragend', function (event) {
+          updateLatLng(event.latLng.lat(), event.latLng.lng())
+        })
+
+        function updateLatLng(lat, lng) {
+          document.getElementById('latitude').value = lat
+          document.getElementById('longitude').value = lng
+          document.getElementById('latText').innerText = lat.toFixed(6)
+          document.getElementById('lngText').innerText = lng.toFixed(6)
+        }
+
+        // Set initial display
+        updateLatLng(defaultLocation.lat, defaultLocation.lng)
+      }
+
+      window.initMap = initMap
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY %>&callback=initMap" async></script>
+  </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/StyleSheet/Style.css">
+    <link rel="stylesheet" href="/StyleSheet/Style.css" />
     <title>All Libraries</title>
   </head>
   <body>
@@ -12,26 +12,28 @@
 
     <div class="page-container">
       <% if (user) { %>
-        <div class="user-actions" style="text-align: center; margin-bottom: 2rem;">
-          <a href="/libraries/my-libraries" class="button sign-in">My Libraries</a>
-          <a href="/libraries/new" class="button sign-up">Add New Library</a>
-        </div>
+      <div class="user-actions" style="text-align: center; margin-bottom: 2rem">
+        <a href="/libraries/my-libraries" class="button sign-in"
+          >My Libraries</a
+        >
+        <a href="/libraries/new" class="button sign-up">Add New Library</a>
+      </div>
       <% } %>
 
       <div class="library-grid">
         <% libraries.forEach(library => { %>
-          <div class="library-card">
-            <a href="/libraries/<%= library._id %>"><%= library.name %></a>
-            
-            <% if (library.image) { %>
-              <img
-                src="/uploads/<%= library.image %>"
-                alt="<%= library.name %> image"
-              />
-            <% } %>
+        <div class="library-card">
+          <a href="/libraries/<%= library._id %>"><%= library.name %></a>
 
-            <!-- Optional edit/delete section (uncomment to use) -->
-            <!--
+          <% if (library.image) { %>
+          <img
+            src="/uploads/<%= library.image %>"
+            alt="<%= library.name %> image"
+          />
+          <% } %>
+
+          <!-- Optional edit/delete section (uncomment to use) -->
+          <!--
             <% if (user && user._id.toString() === library.userId.toString()) { %>
               <form
                 action="/libraries/<%= library._id %>?_method=DELETE"
@@ -43,13 +45,11 @@
               <a href="/libraries/<%= library._id %>/edit" class="button sign-in">Edit</a>
             <% } %>
             -->
-          </div>
+        </div>
         <% }) %>
       </div>
     </div>
 
-    <footer>
-      &copy; <%= new Date().getFullYear() %> My Library App
-    </footer>
+    <footer>&copy; <%= new Date().getFullYear() %> My Library App</footer>
   </body>
 </html>
