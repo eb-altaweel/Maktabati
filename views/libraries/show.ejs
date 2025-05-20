@@ -18,12 +18,12 @@
   
   <p>Favorites:<%= library.favouritedByUser.length %> users</p>
 
-  <% if (user && user._id.toString() === library.userId._id.toString()) { %>
+    <% if (user && user._id.toString() === library.userId._id.toString()) { %>
     <a href="/libraries/<%= library._id %>/edit">Edit this library</a>
     <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST">
       <button type="submit">Delete</button>
     </form>
-  <% } %>
+    <% } %>
     <form action="/libraries/comments" method="POST">
       <input type="hidden" name="libraryId" value="<%= library._id %>" />
       <label for="comment">Leave a comment:</label>
@@ -59,6 +59,6 @@
       <button type="submit">Favourite it!</button>
     </form>
     <% } %> <% } %>
-      <a href="/libraries">Back to all libraries</a>
+    <a href="/libraries">Back to all libraries</a>
   </body>
 </html>
