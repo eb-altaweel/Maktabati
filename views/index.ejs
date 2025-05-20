@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Maktabati Home</title>
-</head>
-<body>
-  <nav>
-    <% if (user) { %>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Maktabati Home</title>
+  </head>
+  <body>
+    <nav>
+      <% if (user) { %>
       <h1>Welcome <%= user.username %>!</h1>
-      <img 
-        src="/uploads/<%= user.profileImage %>" 
-        alt="Profile Image" 
-        style="width: 100px; height: 100px;" 
+      <img
+        src="/uploads/<%= user.profileImage %>"
+        alt="Profile Image"
+        style="width: 100px; height: 100px"
       />
       <a href="/auth/sign-out">Sign out</a>
       <a href="/auth/profile">Edit Profile</a>
       <a href="/libraries/my-libraries">My Libraries</a>
       <a href="/libraries/new">Add Library</a>
-    <% } else { %>
+      <% } else { %>
       <h1>Welcome to Maktabati!</h1>
       <a href="/auth/sign-up">Sign up</a>
       <a href="/auth/sign-in">Sign in</a>
-    <% } %>
-  </nav>
+      <% } %>
+    </nav>
 
-  <h2>All Libraries</h2>
-  <ul>
-    <% libraries.forEach(library => { %>
+    <% if (user) { %>
+
+    <h2>All Libraries</h2>
+    <ul>
+      <% libraries.forEach(library => { %>
       <li>
         <h3>
           <a href="/libraries/<%= library._id %>"><%= library.name %></a>
         </h3>
         <p><%= library.location %></p>
         <% if (library.image) { %>
-          <img 
-            src="/uploads/<%= library.image %>" 
-            alt="<%= library.name %>" 
-            width="120" 
-          />
+        <img
+          src="/uploads/<%= library.image %>"
+          alt="<%= library.name %>"
+          width="120"
+        />
         <% } %>
       </li>
-    <% }) %>
-  </ul>
-</body>
+      <% }) %>
+    </ul>
+    <% } %>
+  </body>
 </html>
