@@ -1,25 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maktabati</title>
-</head>
-<body>
-<h1>Add New Library</h1>
-<form action="/libraries" method="POST">
-  <label>Library Name:</label><input type="text" name="name" required><br>
-  <label>Location:</label><input type="text" name="location" required><br>
-  <label>Address:</label><input type="text" name="address" required><br>
-  <label>Description:</label><textarea name="description"></textarea><br>
-  <label><input type="checkbox" name="hasSeating"> Has Seating</label><br>
-  <label><input type="checkbox" name="hasStudyRoom"> Has Study Room</label><br>
-  <label>Open Time: <input type="time" name="openTime" required></label><br>
-  <label>Close Time: <input type="time" name="closeTime" required></label><br>
-  <label>Image:</label><input type="file" name="image" accept="image/*"><br>
-  <button type="submit">Create Library</button>
-</form>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+        margin-top: 10px;
+      }
+    </style>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY %>&callback=initMap"
+      async
+      defer
+    ></script>
+  </head>
+  <body>
+    <h1>Add New Library</h1>
+    <form action="/libraries" method="POST" enctype="multipart/form-data">
+      <div>
+        <label>Library Name:</label>
+        <input type="text" name="name" required />
+      </div>
+      <div>
+        <label>Location:</label>
+        <input type="text" name="location" required />
+      </div>
+      <div>
+        <label>Address:</label>
+        <input type="text" name="address" required />
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea name="description"></textarea>
+      </div>
+      <div>
+        <label><input type="checkbox" name="hasSeating" /> Has Seating</label>
+      </div>
+      <div>
+        <label
+          ><input type="checkbox" name="hasStudyRoom" /> Has Study Room</label
+        >
+      </div>
+      <div>
+        <label>Open Time:</label>
+        <input type="time" name="openTime" required />
+      </div>
+      <div>
+        <label>Close Time:</label>
+        <input type="time" name="closeTime" required />
+      </div>
+      <div>
+        <label>Image:</label>
+        <input type="file" name="image" accept="image/*" />
+      </div>
 
+      <!-- Map + hidden fields -->
+      <div id="map"></div>
 
-</body>
-</html> 
+      <!-- Hidden fields to store lat/lng -->
+      <input type="hidden" name="latitude" id="latitude" />
+      <input type="hidden" name="longitude" id="longitude" />
+
+      <!-- Optional: show lat/lng values to user -->
+      <!-- <p>
+        Latitude: <span id="latText"></span><br />
+        Longitude: <span id="lngText"></span>
+      </p> -->
+
+      <button type="submit">Create Library</button>
+    </form>
+
+    <script>
+      function initMap() {
+        const defaultLocation = { lat: 26.2285, lng: 50.586 } // Bahrain
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: defaultLocation,
+          zoom: 12
+        })
+
+        const marker = new google.maps.Marker({
+          position: defaultLocation,
+          map: map,
+          draggable: true
+        })
+
+        // Update lat/lng on marker drag
+        marker.addListener('dragend', function (event) {
+          updateLatLng(event.latLng.lat(), event.latLng.lng())
+        })
+
+        // Move marker and update lat/lng on map click
+        map.addListener('click', function (event) {
+          marker.setPosition(event.latLng)
+          updateLatLng(event.latLng.lat(), event.latLng.lng())
+          console.log(event.latLng.lat(), event.latLng.lng())
+        })
+
+        // Function to update hidden inputs + display
+        function updateLatLng(lat, lng) {
+          document.getElementById('latitude').value = lat
+          document.getElementById('longitude').value = lng
+          document.getElementById('latText').innerText = lat.toFixed(6)
+          document.getElementById('lngText').innerText = lng.toFixed(6)
+        }
+
+        // Set initial values
+        updateLatLng(defaultLocation.lat, defaultLocation.lng)
+      }
+    </script>
+  </body>
+</html>

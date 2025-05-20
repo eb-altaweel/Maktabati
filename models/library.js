@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 const librarySchema = new mongoose.Schema(
   {
     name: {
@@ -8,30 +9,23 @@ const librarySchema = new mongoose.Schema(
     },
 
     location: {
-      type: String,
-      required: true,
-      trim: true
+      type: {
+        lat: {
+          type: Number,
+          required: true
+        },
+        lng: {
+          type: Number,
+          required: true
+        }
+      },
+      required: true
     },
 
     address: {
       type: String,
       required: true,
       trim: true
-    },
-
-    description: {
-      type: String,
-      trim: true
-    },
-
-    hasSeating: {
-      type: Boolean,
-      default: false
-    },
-
-    openTime: {
-      type: Date,
-      required: true
     },
 
     description: {
@@ -61,8 +55,9 @@ const librarySchema = new mongoose.Schema(
 
     image: {
       type: [String],
-      default: 'default-library.jpg'
+      default: ['default-library.jpg']
     },
+
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -77,6 +72,6 @@ const librarySchema = new mongoose.Schema(
     ]
   },
   { timestamps: true }
-)
+);
 
-module.exports = mongoose.model('Library', librarySchema)
+module.exports = mongoose.model('Library', librarySchema);
