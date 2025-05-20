@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="/StyleSheet/Style.css">
     <title><%= library.name %></title>
     <style>
       #map {
@@ -13,9 +14,11 @@
     </style>
   </head>
   <body>
-    <h1><%= library.name %></h1>
-    <img src="/uploads/<%= library.image %>" alt="Library Image" width="300" />
-    <p>
+    <div class="page-container">
+    <h1 class="page-title"><%= library.name %></h1>
+    <div class="library-details-card">
+      <img class="library-image" src="/uploads/<%= library.image %>" alt="Library Image" />
+            <div class="library-info">
       <strong>Location:</strong>
       Lat: <span id="lat"><%= library.location.lat %></span>, Lng:
       <span id="lng"><%= library.location.lng %></span>
@@ -37,12 +40,15 @@
     <p>
       <strong>Favorites:</strong> <%= library.favouritedByUser.length %> users
     </p>
-
+          </div>
+    </div>
     <% if (user && user._id.toString() === library.userId._id.toString()) { %>
-    <a href="/libraries/<%= library._id %>/edit">Edit this library</a>
-    <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST">
-      <button type="submit">Delete</button>
-    </form>
+      <div class="owner-actions">
+        <a class="button edit-btn" href="/libraries/<%= library._id %>/edit">Edit this library</a>
+        <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST">
+          <button class="button delete-btn" type="submit">Delete</button>
+        </form>
+      </div>
     <% } %>
 
     <form action="/libraries/comments" method="POST">
@@ -51,19 +57,40 @@
       <textarea name="comment" id="comment"></textarea>
       <button type="submit">Add</button>
     </form>
+    <% if (user) { %>
+      <div class="favourite-section">
+        <% if (userHasFavourited) { %>
+          <p>You have favourited this library!</p>
+          <form action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>?_method=DELETE" method="POST">
+            <button class="button unfavourite-btn" type="submit">Unfavourite it!</button>
+          </form>
+        <% } else { %>
+          <form action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>" method="POST">
+            <button class="button favourite-btn" type="submit">Favourite it!</button>
+          </form>
+        <% } %>
+      </div>
+    <% } %>
 
-    <h2>Comments:</h2>
-    <ul>
-      <% if (comments.length === 0) { %>
-      <li>No comments yet.</li>
-      <% } else { %> <% comments.forEach(comment => { %>
-      <li>
-        <strong><%= comment.userId.username %>:</strong>
-        <%= comment.content %>
-      </li>
-      <% }) %> <% } %>
-    </ul>
+    <div class="comments-section">
+      <form class="comment-form" action="/libraries/comments" method="POST">
+        <input type="hidden" name="libraryId" value="<%= library._id %>" />
+        <label for="comment">Leave a comment:</label>
+        <textarea name="comment" id="comment" required></textarea>
+        <button class="button" type="submit">Add</button>
+      </form>
 
+      <h2>Comments:</h2>
+      <ul class="comments-list">
+        <% if (comments.length === 0) { %>
+          <li>No comments yet.</li>
+        <% } else { %>
+          <% comments.forEach(comment => { %>
+            <li><strong><%= comment.userId.username %>:</strong> <%= comment.content %></li>
+          <% }) %>
+        <% } %>
+      </ul>
+    </div>
     <% if (user) { %> <% if (userHasFavourited) { %>
     <p>You have favourited this library!</p>
     <form
@@ -109,5 +136,6 @@
       defer
       src="https://maps.googleapis.com/maps/api/js?key=<%=process.env.GOOGLE_MAPS_API_KEY%>&callback=initMap"
     ></script>
+      </div>
   </body>
 </html>

@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/StyleSheet/Style.css">
+
     <title>Maktabati</title>
     <style>
       #map {
@@ -18,98 +20,97 @@
     ></script>
   </head>
   <body>
-    <h1>Add New Library</h1>
-    <form action="/libraries" method="POST" enctype="multipart/form-data">
-      <div>
-        <label>Library Name:</label>
-        <input type="text" name="name" required />
-      </div>
-      <div>
-        <label>Location:</label>
-        <input type="text" name="location" required />
-      </div>
-      <div>
-        <label>Address:</label>
-        <input type="text" name="address" required />
-      </div>
-      <div>
-        <label>Description:</label>
-        <textarea name="description"></textarea>
-      </div>
-      <div>
-        <label><input type="checkbox" name="hasSeating" /> Has Seating</label>
-      </div>
-      <div>
-        <label
-          ><input type="checkbox" name="hasStudyRoom" /> Has Study Room</label
-        >
-      </div>
-      <div>
-        <label>Open Time:</label>
-        <input type="time" name="openTime" required />
-      </div>
-      <div>
-        <label>Close Time:</label>
-        <input type="time" name="closeTime" required />
-      </div>
-      <div>
-        <label>Image:</label>
-        <input type="file" name="image" accept="image/*" />
-      </div>
+<form action="/libraries" method="POST" enctype="multipart/form-data" class="library-form">
+  <h2>Add New Library</h2>
 
-      <!-- Map + hidden fields -->
-      <div id="map"></div>
+  <div class="form-group">
+    <label for="name">Library Name:</label>
+    <input type="text" name="name" id="name" required />
+  </div>
 
-      <!-- Hidden fields to store lat/lng -->
-      <input type="hidden" name="latitude" id="latitude" />
-      <input type="hidden" name="longitude" id="longitude" />
+  <div class="form-group">
+    <label for="location">Location:</label>
+    <input type="text" name="location" id="location" required />
+  </div>
 
-      <!-- Optional: show lat/lng values to user -->
-      <p>
-        Latitude: <span id="latText"></span><br />
-        Longitude: <span id="lngText"></span>
-      </p>
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <input type="text" name="address" id="address" required />
+  </div>
 
-      <button type="submit">Create Library</button>
-    </form>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea>
+  </div>
 
-    <script>
-      function initMap() {
-        const defaultLocation = { lat: 26.2285, lng: 50.586 } // Bahrain
-        const map = new google.maps.Map(document.getElementById('map'), {
-          center: defaultLocation,
-          zoom: 12
-        })
+  <div class="form-group checkbox-group">
+    <label><input type="checkbox" name="hasSeating" /> Has Seating</label>
+    <label><input type="checkbox" name="hasStudyRoom" /> Has Study Room</label>
+  </div>
 
-        const marker = new google.maps.Marker({
-          position: defaultLocation,
-          map: map,
-          draggable: true
-        })
+  <div class="form-group time-group">
+    <label>Open Time:</label>
+    <input type="time" name="openTime" required />
+    <label>Close Time:</label>
+    <input type="time" name="closeTime" required />
+  </div>
 
-        // Update lat/lng on marker drag
-        marker.addListener('dragend', function (event) {
-          updateLatLng(event.latLng.lat(), event.latLng.lng())
-        })
+  <div class="form-group">
+    <label for="image">Image:</label>
+    <input type="file" name="image" accept="image/*" />
+  </div>
 
-        // Move marker and update lat/lng on map click
-        map.addListener('click', function (event) {
-          marker.setPosition(event.latLng)
-          updateLatLng(event.latLng.lat(), event.latLng.lng())
-          console.log(event.latLng.lat(), event.latLng.lng())
-        })
+  <div id="map"></div>
 
-        // Function to update hidden inputs + display
-        function updateLatLng(lat, lng) {
-          document.getElementById('latitude').value = lat
-          document.getElementById('longitude').value = lng
-          document.getElementById('latText').innerText = lat.toFixed(6)
-          document.getElementById('lngText').innerText = lng.toFixed(6)
-        }
+  <input type="hidden" name="latitude" id="latitude" />
+  <input type="hidden" name="longitude" id="longitude" />
 
-        // Set initial values
-        updateLatLng(defaultLocation.lat, defaultLocation.lng)
-      }
-    </script>
+  <p class="coords">
+    Latitude: <span id="latText"></span><br />
+    Longitude: <span id="lngText"></span>
+  </p>
+
+  <button type="submit" class="submit-btn">Create Library</button>
+</form>
+
+<script>
+  function initMap() {
+    const defaultLocation = { lat: 26.2285, lng: 50.586 }; // Bahrain
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: defaultLocation,
+      zoom: 12,
+    });
+
+    const marker = new google.maps.Marker({
+      position: defaultLocation,
+      map: map,
+      draggable: true,
+    });
+
+    map.addListener("click", function (event) {
+      marker.setPosition(event.latLng);
+      updateLatLng(event.latLng.lat(), event.latLng.lng());
+    });
+
+    marker.addListener("dragend", function (event) {
+      updateLatLng(event.latLng.lat(), event.latLng.lng());
+    });
+
+    function updateLatLng(lat, lng) {
+      document.getElementById("latitude").value = lat;
+      document.getElementById("longitude").value = lng;
+      document.getElementById("latText").innerText = lat.toFixed(6);
+      document.getElementById("lngText").innerText = lng.toFixed(6);
+    }
+
+    // Set default values
+    updateLatLng(defaultLocation.lat, defaultLocation.lng);
+  }
+
+  // Make function available globally for callback
+  window.initMap = initMap;
+</script>
+
   </body>
 </html>
