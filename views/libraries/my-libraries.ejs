@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/StyleSheet/Style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/StyleSheet/Style.css" />
   <title>My Libraries</title>
 </head>
 <body>
-  <h1>My Libraries</h1>
-  <a href="/libraries/new">Add New Library</a>
+  <div class="page-container">
+    <h1 class="page-title">My Libraries</h1>
 
-  <ul>
-    <% libraries.forEach(library => { %>
-      <li>
-        <h2><a href="/libraries/<%= library._id %>"><%= library.name %></a></h2>
-        <% if (library.image) { %>
-          <img src="/uploads/<%= library.image %>" alt="<%= library.name %> image" width="150" />
-        <% } %>
-        <a href="/libraries/<%= library._id %>/edit">Edit</a>
-        <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST" style="display: inline">
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    <% }) %>
-  </ul>
+    <!-- Back Link (Optional if you're on a subpage) -->
+    <div class="top-actions">
+      <a href="/libraries" class="button back-btn">← Back to All Libraries</a>
+      <a href="/libraries/new" class="button add-library">+ Add New Library</a>
+    </div>
+
+    <!-- Library Cards -->
+    <div class="library-grid">
+      <% libraries.forEach(library => { %>
+        <div class="library-card">
+          <a href="/libraries/<%= library._id %>">
+            <h2><%= library.name %></h2>
+            <% if (library.image) { %>
+              <img src="/uploads/<%= library.image %>" alt="<%= library.name %> image" />
+            <% } else { %>
+              <div class="placeholder-img">No Image</div>
+            <% } %>
+          </a>
+
+          <div class="library-actions">
+            <a href="/libraries/<%= library._id %>/edit" class="button edit-btn">Edit</a>
+            <form action="/libraries/<%= library._id %>?_method=DELETE" method="POST">
+              <button type="submit" class="button delete-btn">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
 </body>
 </html>
