@@ -7,6 +7,7 @@
   <body>
     <h1>All Libraries</h1>
     <% if (user) { %>
+       <a href="/libraries/my-libraries">My Libraries</a>
     <a href="/libraries/new">Add New Library</a>
     <% } %>
 
@@ -21,7 +22,10 @@
           alt="<%= library.name %> image"
           width="150"
         />
-        <% } %> <% if (user && user._id.toString() ===
+        <% } %> 
+
+<!--         
+        <% if (user && user._id.toString() ===
         library.userId.toString()) { %>
         <form
           action="/libraries/<%= library._id %>?_method=DELETE"
@@ -31,7 +35,9 @@
           <button type="submit">Delete</button>
         </form>
         <a href="/libraries/<%= library._id %>/edit">Edit</a>
-        <% } %>
+        <% } %> -->
+
+
       </li>
       <% }) %>
     </ul>

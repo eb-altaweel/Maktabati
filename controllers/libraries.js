@@ -6,11 +6,17 @@ const multer = require('../config/multer') // Multer for image upload
 const isSignedIn = require('../middleware/is-signed-in')
 
 //GET
-//Show all libraries
+//Show all libraries(View Only)
 router.get('/', async (req, res) => {
   const libraries = await Library.find().populate('userId')
-  res.render('libraries/index.ejs', { libraries })
-})
+ res.render('libraries/index.ejs', { libraries, user: req.session.user })
+});
+// Show user libraries (Editable)
+router.get('/my-libraries', isSignedIn, async (req, res) => {
+  const libraries = await Library.find({ userId: req.session.user._id }).populate('userId');
+  res.render('libraries/my-libraries.ejs', { libraries, user: req.session.user });
+});
+
 //Form to create new library
 router.get('/new', isSignedIn, (req, res) => {
   res.render('libraries/new.ejs')
@@ -32,7 +38,7 @@ router.post('/', isSignedIn, multer.single('image'), async (req, res) => {
     userId: req.session.user._id
   })
   await newLibrary.save()
-  res.redirect('/libraries')
+  res.redirect('/libraries/my-libraries')
 })
 
 //Show library details
@@ -60,9 +66,13 @@ router.get('/:id', async (req, res) => {
   })
 })
 
+
 // Edit form
 router.get('/:id/edit', isSignedIn, async (req, res) => {
   const library = await Library.findById(req.params.id)
+    if (!library || !library.userId.equals(req.session.user._id)) {
+    return res.redirect('/libraries');
+  }
   res.render('libraries/edit.ejs', { library })
 })
 
@@ -70,6 +80,10 @@ router.get('/:id/edit', isSignedIn, async (req, res) => {
 //  Update library
 router.put('/:id', isSignedIn, multer.single('image'), async (req, res) => {
   const library = await Library.findById(req.params.id)
+    if (!library || !library.userId.equals(req.session.user._id)) {
+    return res.redirect('/libraries');
+  }
+
   library.name = req.body.name
   library.location = req.body.location
   library.address = req.body.address
@@ -85,8 +99,14 @@ router.put('/:id', isSignedIn, multer.single('image'), async (req, res) => {
 
 //Delete library
 router.delete('/:id', isSignedIn, async (req, res) => {
-  await Library.findByIdAndDelete(req.params.id)
-  res.redirect('/libraries')
+  const library = await Library.findById(req.params.id);
+  if (!library || !library.userId.equals(req.session.user._id)) {
+    return res.redirect('/libraries');
+  }
+  
+  await Library.findByIdAndDelete(req.params.id);
+  res.redirect('/libraries/my-libraries');
+});
 })
 
 router.post('/comments', isSignedIn, async (req, res) => {
@@ -123,5 +143,4 @@ router.delete(
     res.redirect(`/libraries/${req.params.libraryId}`)
   }
 )
-
 module.exports = router
