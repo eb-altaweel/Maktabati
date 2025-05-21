@@ -15,6 +15,10 @@
   </head>
   <body>
     <div class="page-container">
+      <div class="top-actions">
+        <a href="/" class="button back-btn">← Back</a>
+      </div>
+
       <h1 class="page-title"><%= library.name %></h1>
       <div class="library-details-card">
         <img
@@ -48,6 +52,29 @@
             <strong>Favorited By:</strong> <%= library.favouritedByUser.length
             %> users
           </p>
+          <% if (user) { %>
+          <div class="favourite-section">
+            <% if (userHasFavourited) { %>
+            <form
+              action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="button unfavourite-btn" type="submit">
+                Unfavourite it
+              </button>
+            </form>
+            <% } else { %>
+            <form
+              action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>"
+              method="POST"
+            >
+              <button class="button favourite-btn" type="submit">
+                Favourite it
+              </button>
+            </form>
+            <% } %>
+          </div>
+          <% } %>
         </div>
       </div>
       <% if (user && user._id.toString() === library.userId._id.toString()) { %>
@@ -61,28 +88,6 @@
         >
           <button class="button delete-btn" type="submit">Delete</button>
         </form>
-      </div>
-      <% } %> <% if (user) { %>
-      <div class="favourite-section">
-        <% if (userHasFavourited) { %>
-        <form
-          action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>?_method=DELETE"
-          method="POST"
-        >
-          <button class="button unfavourite-btn" type="submit">
-            Unfavourite it!
-          </button>
-        </form>
-        <% } else { %>
-        <form
-          action="/libraries/<%= library._id %>/favourited-by/<%= user._id %>"
-          method="POST"
-        >
-          <button class="button favourite-btn" type="submit">
-            Favourite it!
-          </button>
-        </form>
-        <% } %>
       </div>
       <% } %>
 
@@ -106,7 +111,6 @@
           <% }) %> <% } %>
         </ul>
       </div>
-      <a href="/">Back to all libraries</a>
 
       <script>
         const lat = document.getElementById('lat').textContent

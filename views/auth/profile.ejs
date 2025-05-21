@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="/StyleSheet/Style.css">
-  <title>Document</title>
-</head>
-<body>
-<div class="profile-edit-container">
-  <h2>Update Profile Image</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/StyleSheet/Style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="profile-edit-container">
+      <h2>Update Profile Image</h2>
 
-  <div class="current-image">
-    <img src="/uploads/<%= user.profileImage %>" alt="Current Profile Image" />
-  </div>
+      <div class="current-image">
+        <img
+          src="/uploads/<%= user.profileImage %>"
+          alt="Current Profile Image"
+        />
+      </div>
 
-  <form action="/auth/profile" method="POST" enctype="multipart/form-data" class="profile-form">
-    <input type="file" name="profileImage" required />
-    <button type="submit">Upload</button>
-  </form>
-</div>
-
-</body>
+      <form
+        action="/auth/profile"
+        method="POST"
+        enctype="multipart/form-data"
+        class="profile-form"
+      >
+        <input type="file" name="profileImage" required />
+        <button type="submit">Upload</button>
+      </form>
+      <div class="top-actions">
+        <a href="/" class="button back-btn">← Back</a>
+      </div>
+    </div>
+  </body>
+  <script>
+    document
+      .querySelector('.profile-form')
+      .addEventListener('submit', function (e) {
+        alert('Your profile image is changed successfully.')
+      })
+  </script>
 </html>

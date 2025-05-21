@@ -15,6 +15,9 @@
   </head>
   <body>
     <div class="page-container">
+      <div class="top-actions">
+        <a href="/" class="button back-btn">← Back</a>
+      </div>
       <h1 class="page-title">Edit Library</h1>
 
       <form
@@ -108,10 +111,6 @@
 
         <button type="submit" class="submit-btn">Update Library</button>
       </form>
-
-      <div class="top-actions">
-        <a href="/" class="button back-btn">← Back to All Libraries</a>
-      </div>
     </div>
 
     <script>
@@ -154,6 +153,9 @@
 
       window.initMap = initMap
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY %>&callback=initMap" async></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY %>&callback=initMap"
+      async
+    ></script>
   </body>
 </html>
