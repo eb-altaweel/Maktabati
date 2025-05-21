@@ -1,66 +1,102 @@
 body {
   margin: 0;
+  background: linear-gradient(135deg, #1e3c72, #2a5298, #1e3c72);
   font-family: 'Segoe UI', sans-serif;
-  background-image: url('../uploads/bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  font-family: 'Merriweather', serif;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 0;
   padding: 2rem;
-  color: #222;
+  color: #f0f0f0;
   min-height: 100vh;
+  backdrop-filter: blur(2px);
+  
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1), transparent 50%);
+  animation: moveBackground 25s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes moveBackground {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, 20px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 .auth-container {
   max-width: 400px;
   margin: 80px auto;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(30, 30, 47, 0.95); 
   padding: 2.5rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
   transition: box-shadow 0.3s ease;
 }
+
 .auth-container:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
+
 .auth-container h2 {
   text-align: center;
   margin-bottom: 1.8rem;
-  color: #2a63bf;
+  color: #8ab4ff;
   font-weight: 700;
   letter-spacing: 1.2px;
 }
+
 .auth-container input {
   width: 100%;
   padding: 0.85rem 1rem;
   margin-bottom: 1.2rem;
-  border: 2px solid #cdd9ff;
+  border: 2px solid #555877;
   border-radius: 8px;
   box-sizing: border-box;
   font-size: 1rem;
-  color: #2c3e50;
+  color: #f0f0f0;
   font-weight: 500;
-  background-color: #f7f9ff;
+  background-color: #2b2b3d;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .auth-container input::placeholder {
-  color: #a3b1f7;
+  color: #a0a4c0;
   font-style: italic;
 }
+
 .auth-container input:focus {
-  border-color: #2a63bf;
-  box-shadow: 0 0 8px #2a63bf88;
+  border-color: #8ab4ff;
+  box-shadow: 0 0 8px #8ab4ff88;
   outline: none;
-  background-color: #fff;
+  background-color: #33344f;
 }
+
 .auth-container input[type='file'] {
   padding: 0.6rem 1rem;
-  background-color: #e8ecff;
+  background-color: #3a3a55;
   cursor: pointer;
-  border-color: #b0bfff;
+  border-color: #8ab4ff;
 }
+
 .auth-container input[type='file']:hover {
-  background-color: #d3d9ff;
+  background-color: #505073;
 }
+
 .auth-container button {
   width: 100%;
   padding: 0.85rem;
@@ -74,30 +110,26 @@ body {
   box-shadow: 0 5px 12px rgba(42, 99, 191, 0.6);
   transition: background-color 0.35s ease, box-shadow 0.35s ease;
 }
+
 .auth-container button:hover {
   background-color: #1f4e8c;
   box-shadow: 0 7px 16px rgba(31, 78, 140, 0.75);
 }
 
-/* Library Display */
-.library-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 3rem;
-}
 
 .library-card {
-  background-color: white;
+  background-color: rgba(30, 30, 47, 0.95); 
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #f0f0f0;
 }
 
 .library-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .library-card img {
@@ -110,7 +142,7 @@ body {
   display: block;
   padding: 1rem;
   text-decoration: none;
-  color: #4a90e2;
+  color: #8ab4ff; 
   font-weight: bold;
   font-size: 1.2rem;
   transition: color 0.3s;
@@ -193,7 +225,7 @@ footer {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.97);
+  background-color: rgba(30, 30, 47, 0.95);
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(6px);
@@ -251,7 +283,7 @@ footer {
 }
 /* Navigation Bar Styling */
 nav {
-  background-color: white;
+  background-color: rgba(30, 30, 47, 0.95);
   padding: 1rem 2rem;
   display: flex;
   flex-wrap: wrap;
@@ -347,11 +379,13 @@ nav a.library-link:hover {
   max-width: 500px;
   margin: 100px auto;
   padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(30, 30, 47, 0.95); 
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   text-align: center;
+  color: #f0f0f0;
 }
+
 
 .profile-edit-container h2 {
   color: #4a90e2;
@@ -368,14 +402,21 @@ nav a.library-link:hover {
 }
 
 .profile-form input[type='file'] {
-  display: block;
-  margin: 1rem auto;
-  padding: 0.5rem;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.3);  
+    color: #eee; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+.profile-form input[type='file']:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+}
 .profile-form button {
   padding: 0.75rem 2rem;
   background-color: #4a90e2;
@@ -424,22 +465,6 @@ nav a.library-link:hover {
   gap: 2rem;
 }
 
-.library-card {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-}
-
-.library-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-top: 0.5rem;
-}
 
 .library-actions {
   display: flex;
@@ -490,13 +515,21 @@ h2 {
 }
 
 .library-form {
-  max-width: 600px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgba(30, 30, 47, 0.95);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    color: #eee; 
+    backdrop-filter: blur(6px);
+    transition: box-shadow 0.3s ease;
 }
+
+.library-form:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
 
 .form-group {
   margin-bottom: 1.25rem;
@@ -514,9 +547,23 @@ input[type='time'],
 input[type='file'],
 textarea {
   padding: 0.6rem;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   border-radius: 8px;
   font-size: 1rem;
+  background-color: rgba(70, 70, 90, 0.8); 
+  color: #eee; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='time']:focus,
+input[type='file']:focus,
+textarea:focus {
+  border-color: #2a63bf;
+  box-shadow: 0 0 8px #2a63bf88;
+  outline: none;
+  background-color: rgba(50, 50, 70, 0.9);
+  color: #fff;
 }
 
 textarea {
@@ -709,11 +756,15 @@ textarea {
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
-  border: 1px solid #ddd;
+  border: none;
   padding: 1.5rem;
-  border-radius: 10px;
-  background-color: #fafafa;
+  border-radius: 12px;
+  background-color: rgba(30, 30, 47, 0.95); 
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  color: #ffffff; 
+  transition: box-shadow 0.3s ease;
 }
+
 
 .library-image {
   width: 300px;
@@ -775,8 +826,13 @@ textarea {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #555; 
+  background-color: rgba(60, 60, 75, 0.95); 
+  color: #f0f0f0; 
+  resize: vertical;
+  font-size: 1rem;
 }
+
 
 .comments-list {
   list-style: none;
@@ -784,11 +840,13 @@ textarea {
 }
 
 .comments-list li {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  background-color: #f4f4f4;
-  border-radius: 4px;
+  color: #f5f5f5; 
+  background-color: rgba(255, 255, 255, 0.05); 
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
 }
+
 
 textarea {
   resize: none;
