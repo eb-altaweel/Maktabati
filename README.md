@@ -28,6 +28,7 @@ Start by planning the database schema using ERD, followed by wireframes for user
 - User registration and login
 - User profile with image upload
 - Add / edit / delete library listings
+- Integrate Google Maps for location display
 - Comment system: leave feedback on libraries
 - Secure authentication and authorization
 - Only owners can edit/delete their submissions
@@ -36,7 +37,6 @@ Start by planning the database schema using ERD, followed by wireframes for user
 ---
 ### **_Stretch Features (Planned)_**
 - Upload multiple photos per library
-- Like/favorite libraries
 - Admin dashboard for moderation
 ---
 ### **_Educational Value_**
@@ -48,12 +48,8 @@ Start by planning the database schema using ERD, followed by wireframes for user
 ### **_Screenshots_**
 
 ---
-### **_Unsolved Problems_**
-
----
 ### **_Future Enhancements_**
 - Add review ratings for libraries
-- Integrate Google Maps for location display
 - Add social logins (Google, GitHub)
 - Add dark/light mode toggle
 ---
