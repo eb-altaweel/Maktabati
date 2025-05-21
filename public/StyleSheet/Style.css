@@ -1,58 +1,82 @@
-/* Global Styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  /* background-color: #f5f5f5; */
   background-image: url('../uploads/bg.jpg');
   background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   padding: 2rem;
-  color: #333;
+  color: #222;
+  min-height: 100vh;
 }
-
-/* Auth Container (Login / Sign-up) */
 .auth-container {
   max-width: 400px;
   margin: 80px auto;
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
 }
-
+.auth-container:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
 .auth-container h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #4a90e2;
+  margin-bottom: 1.8rem;
+  color: #2a63bf;
+  font-weight: 700;
+  letter-spacing: 1.2px;
 }
-
 .auth-container input {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.2rem;
+  border: 2px solid #cdd9ff;
+  border-radius: 8px;
   box-sizing: border-box;
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+  background-color: #f7f9ff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
+.auth-container input::placeholder {
+  color: #a3b1f7;
+  font-style: italic;
+}
+.auth-container input:focus {
+  border-color: #2a63bf;
+  box-shadow: 0 0 8px #2a63bf88;
+  outline: none;
+  background-color: #fff;
+}
 .auth-container input[type='file'] {
-  padding: 0.5rem;
-  background-color: #f9f9f9;
+  padding: 0.6rem 1rem;
+  background-color: #e8ecff;
+  cursor: pointer;
+  border-color: #b0bfff;
 }
-
+.auth-container input[type='file']:hover {
+  background-color: #d3d9ff;
+}
 .auth-container button {
   width: 100%;
-  padding: 0.75rem;
-  background-color: #4a90e2;
+  padding: 0.85rem;
+  background-color: #2a63bf;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 5px 12px rgba(42, 99, 191, 0.6);
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
 }
-
 .auth-container button:hover {
-  background-color: #3a78c2;
+  background-color: #1f4e8c;
+  box-shadow: 0 7px 16px rgba(31, 78, 140, 0.75);
 }
 
 /* Library Display */
@@ -165,76 +189,99 @@ footer {
   background-color: #4a90e2;
   color: white;
 }
-/* Page Layout for All Libraries */
 .page-container {
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.97);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
 }
-
 /* Centered Header */
 header h1 {
-  margin: 2rem 0;
-  font-size: 2.5rem;
-  color: #4a90e2;
+  margin: 2rem 0 1.5rem;
+  font-size: 2.8rem;
+  font-weight: 700;
+  font-family: 'Fredoka', sans-serif;
+  color: #2a63bf;
   text-align: center;
+  letter-spacing: 1px;
 }
-
 /* User Action Buttons (My Libraries / Add New) */
 .user-actions {
   display: flex;
   justify-content: center;
-  gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
 }
-
+.user-actions .button {
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: #2a63bf;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 14px rgba(42, 99, 191, 0.4);
+}
+.user-actions .button:hover {
+  background-color: #1e4d94;
+  box-shadow: 0 6px 18px rgba(30, 77, 148, 0.5);
+}
 /* Footer Styling */
 footer {
   margin-top: 3rem;
-  padding: 1rem 0;
-  background-color: #f5f5f5;
+  padding: 1.2rem 0;
+  background-color: #f0f4f9;
   text-align: center;
-  color: #888;
+  color: #777;
   font-size: 0.95rem;
   border-top: 1px solid #ddd;
 }
-
 /* Adjust library-card image size for consistency */
 .library-card img {
   height: 200px;
   object-fit: cover;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
-/* Navigation Links (Sign Out, Edit Profile, etc.) */
+/* Navigation Bar Styling */
 nav {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: white;
   padding: 1rem 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 33px;
+  z-index: 1000;
 }
-
 nav h1 {
   margin: 0;
-  font-size: 1.5rem;
-  color: #4a90e2;
+  font-size: 1.8rem;
+  color: #2a63bf;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
-
 nav img {
-  border-radius: 50%;
+  width: 45px;
+  height: 45px;
   object-fit: cover;
-  border: 2px solid #4a90e2;
+  transition: transform 0.3s;
 }
-
+nav img:hover {
+  transform: scale(1.05);
+}
 /* Navigation buttons */
 nav a {
   padding: 0.5rem 1rem;
@@ -749,12 +796,10 @@ textarea {
 
 #main-title {
   font-size: 40pt;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Playfair Display', serif;
   font-optical-sizing: auto;
-  font-weight: 1000;
+  font-weight: 500;
   font-style: normal;
-  font-weight: bolder;
-  margin-top: 20px;
 }
 
 .container-buttons {
