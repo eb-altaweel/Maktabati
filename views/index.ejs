@@ -27,11 +27,13 @@
         <a href="/libraries/my-libraries">My Libraries</a>
         <a href="/libraries/new">Add Library</a>
         <a href="/auth/sign-out">Sign out</a>
-        <img
-          src="/uploads/<%= user.profileImage %>"
-          alt="Profile Image"
-          style="width: 70px; height: 70px"
-        />
+        <a href="/auth/profile">
+          <img
+            src="/uploads/<%= user.profileImage %>"
+            alt="Profile Image"
+            style="width: 70px; height: 70px"
+          />
+        </a>
       </div>
       <% } else { %>
       <div class="container-buttons">

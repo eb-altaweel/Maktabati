@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/StyleSheet/Style.css">
-  <title>Document</title>
-</head>
-<body>
-  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/StyleSheet/Style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="auth-container">
+      <h1>Sign In</h1>
 
-<div class="auth-container">
-<h1>Sign In</h1>
+      <form action="/auth/sign-in" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" />
+        <br />
 
-<form action="/auth/sign-in" method="post">
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username" />
-  <br />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
 
-  <label for="password">Password</label>
-  <input type="password" name="password" id="password" />
-
-  <button type="submit">Sign In</button>
-
-  </div>
-</form>
-</body>
+        <button type="submit">Sign In</button>
+      </form>
+      <br />
+      <p>Don't have an account? <a href="/auth/sign-up">Create an account</a></p>
+    </div>
+  </body>
 </html>

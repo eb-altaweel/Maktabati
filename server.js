@@ -44,10 +44,6 @@ const libraryController = require('./controllers/libraries')
 app.use('/auth', authController)
 app.use('/libraries', libraryController)
 
-//get
-// app.get('/', async (req, res) => {
-//   res.render('index.ejs')
-// })
 app.get('/', async (req, res) => {
 try {
 const libraries = await Library.find().populate('userId');

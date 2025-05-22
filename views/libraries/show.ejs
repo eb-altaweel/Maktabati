@@ -28,10 +28,8 @@
         />
         <div class="library-info">
           <strong>Location:</strong>
-          <p>
-            Lat: <span id="lat"><%= library.location.lat %></span>, Lng:
-            <span id="lng"><%= library.location.lng %></span>
-          </p>
+            <span hidden id="lat"><%= library.location.lat %></span>
+            <span hidden id="lng"><%= library.location.lng %></span>
           <div id="map"></div>
 
           <p><strong>Address:</strong> <%= library.address %></p>
