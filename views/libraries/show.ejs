@@ -28,8 +28,8 @@
         />
         <div class="library-info">
           <strong>Location:</strong>
-            <span hidden id="lat"><%= library.location.lat %></span>
-            <span hidden id="lng"><%= library.location.lng %></span>
+          <span hidden id="lat"><%= library.location.lat %></span>
+          <span hidden id="lng"><%= library.location.lng %></span>
           <div id="map"></div>
 
           <p><strong>Address:</strong> <%= library.address %></p>
@@ -78,7 +78,7 @@
       <% if (user && user._id.toString() === library.userId._id.toString()) { %>
       <div class="owner-actions">
         <a class="button edit-btn" href="/libraries/<%= library._id %>/edit"
-          >Edit this library</a
+          >Edit</a
         >
         <form
           action="/libraries/<%= library._id %>?_method=DELETE"
@@ -111,21 +111,21 @@
       </div>
 
       <script>
-        const lat = document.getElementById('lat').textContent
-        const lng = document.getElementById('lng').textContent
+        const lat = document.getElementById("lat").textContent
+        const lng = document.getElementById("lng").textContent
 
         function initMap() {
           const location = {
             lat: Number(lat),
-            lng: Number(lng)
+            lng: Number(lng),
           }
-          const map = new google.maps.Map(document.getElementById('map'), {
+          const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 14,
-            center: location
+            center: location,
           })
           new google.maps.Marker({
             position: location,
-            map: map
+            map: map,
           })
         }
       </script>
