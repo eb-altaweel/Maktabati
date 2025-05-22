@@ -46,6 +46,9 @@ Start by planning the database schema using ERD, followed by wireframes for user
 - Enhances collaboration and version control using Git and GitHub
 ---
 ### **_Screenshots_**
+![Home](https://github.com/user-attachments/assets/a7da54d6-b6e8-4f69-a565-e8a36dcd6147)
+
+![ERD](https://github.com/user-attachments/assets/78f30db2-f965-4454-9f80-e50e366940dc)
 
 ---
 ### **_Future Enhancements_**
